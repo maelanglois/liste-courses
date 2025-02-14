@@ -1,11 +1,11 @@
 import { Link } from "react-router";
-import AddPerso from "~/components/AddPerso/AddPerso";
+import AddList from "~/components/AddList/AddList";
 
 export default function ShowAddForm() {
   return (
     <>
       <Link to="/">Retour à l'accueil</Link>
-      <AddPerso />
+      <AddList />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import type { Route } from "../+types/root";
-import type { PersoI } from "~/shared/interfaces/Perso.interface";
-import { PersoContext } from "~/shared/contexts/PersoContext";
+import type { ListI } from "~/shared/interfaces/Element.interface";
+import { ListContext } from "~/shared/contexts/ListContext";
 import { useNavigate } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -10,41 +10,41 @@ export async function loader({ params }: Route.LoaderArgs) {
    */
 }
 
-export default function ShowPersoCard({
+export default function ShowListCard({
   params,
 }: Route.ComponentProps) {
   const { id } = params;
 
   let navigate = useNavigate();
 
-  let { MIN, MAX, perso, setPerso, jobs } =
-    useContext(PersoContext);
+  let { MIN, MAX, list, setList, jobs } =
+    useContext(ListContext);
 
   const submitUpdateForm = async (e: any) => {
     e.preventDefault();
 
     if (
-      !perso.pseudo ||
-      !perso.title ||
-      !perso.job ||
-      perso.stats.strength <= 0 ||
-      perso.stats.dexterity <= 0 ||
-      perso.stats.luck <= 0 ||
-      perso.stats.intelligence <= 0 ||
-      perso.stats.wisdom <= 0
+      !list.pseudo ||
+      !list.title ||
+      !list.job ||
+      list.stats.strength <= 0 ||
+      list.stats.dexterity <= 0 ||
+      list.stats.luck <= 0 ||
+      list.stats.intelligence <= 0 ||
+      list.stats.wisdom <= 0
     ) {
       throw new Error(
         "Une (ou plusieurs) statistique est invalide."
       );
     }
 
-    await fetch("http://localhost:5500/perso/update", {
+    await fetch("http://localhost:5500/list/update", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       mode: "cors",
-      body: JSON.stringify(perso)
+      body: JSON.stringify(list)
     })
     .then(response => response.json())
     .then(datas => {
@@ -52,7 +52,7 @@ export default function ShowPersoCard({
         throw new Error("Le status de la requête est invalide.");
       }
 
-      navigate("/perso/list");
+      navigate("/list/list");
     })
     .catch(err=>console.error(err));
   };
@@ -67,12 +67,12 @@ export default function ShowPersoCard({
       <input
         type="text"
         name="pseudo"
-        defaultValue={perso.pseudo}
+        defaultValue={list.pseudo}
         onChange={(e) => {
           let newPseudo = e.target.value ?? null;
-          setPerso((perso: PersoI) => {
-            perso.pseudo = newPseudo;
-            return perso;
+          setList((list: ListI) => {
+            list.pseudo = newPseudo;
+            return list;
           });
         }}
         required
@@ -81,12 +81,12 @@ export default function ShowPersoCard({
       <input
         type="text"
         name="title"
-        defaultValue={perso.title}
+        defaultValue={list.title}
         onChange={(e) => {
           let newTitle = e.target.value ?? null;
-          setPerso((perso: PersoI) => {
-            perso.title = newTitle;
-            return perso;
+          setList((list: ListI) => {
+            list.title = newTitle;
+            return list;
           });
         }}
         required
@@ -94,11 +94,11 @@ export default function ShowPersoCard({
       <label htmlFor="class">Choix de la classe</label>
       <select
         name="class"
-        defaultValue={perso.job}
+        defaultValue={list.job}
         onChange={(e) => {
-          setPerso((perso: PersoI) => {
-            perso.job = e.target.value;
-            return perso;
+          setList((list: ListI) => {
+            list.job = e.target.value;
+            return list;
           });
         }}
         required
@@ -123,13 +123,13 @@ export default function ShowPersoCard({
       <input
         type="number"
         name="stat_force"
-        defaultValue={perso.stats.strength}
+        defaultValue={list.stats.strength}
         min={MIN}
         max={MAX}
         onChange={(e) => {
-          setPerso((perso: PersoI) => {
-            perso.stats.strength = Number(e.target.value);
-            return perso;
+          setList((list: ListI) => {
+            list.stats.strength = Number(e.target.value);
+            return list;
           });
         }}
         required
@@ -138,13 +138,13 @@ export default function ShowPersoCard({
       <input
         type="number"
         name="stat_dexterity"
-        defaultValue={perso.stats.dexterity}
+        defaultValue={list.stats.dexterity}
         min={MIN}
         max={MAX}
         onChange={(e) => {
-          setPerso((perso: PersoI) => {
-            perso.stats.strength = Number(e.target.value);
-            return perso;
+          setList((list: ListI) => {
+            list.stats.strength = Number(e.target.value);
+            return list;
           });
         }}
         required
@@ -153,13 +153,13 @@ export default function ShowPersoCard({
       <input
         type="number"
         name="stat_luck"
-        defaultValue={perso.stats.luck}
+        defaultValue={list.stats.luck}
         min={MIN}
         max={MAX}
         onChange={(e) => {
-          setPerso((perso: PersoI) => {
-            perso.stats.strength = Number(e.target.value);
-            return perso;
+          setList((list: ListI) => {
+            list.stats.strength = Number(e.target.value);
+            return list;
           });
         }}
         required
@@ -170,13 +170,13 @@ export default function ShowPersoCard({
       <input
         type="number"
         name="stat_intelligence"
-        defaultValue={perso.stats.intelligence}
+        defaultValue={list.stats.intelligence}
         min={MIN}
         max={MAX}
         onChange={(e) => {
-          setPerso((perso: PersoI) => {
-            perso.stats.strength = Number(e.target.value);
-            return perso;
+          setList((list: ListI) => {
+            list.stats.strength = Number(e.target.value);
+            return list;
           });
         }}
         required
@@ -185,13 +185,13 @@ export default function ShowPersoCard({
       <input
         type="number"
         name="stat_knowledge"
-        defaultValue={perso.stats.wisdom}
+        defaultValue={list.stats.wisdom}
         min={MIN}
         max={MAX}
         onChange={(e) => {
-          setPerso((perso: PersoI) => {
-            perso.stats.strength = Number(e.target.value);
-            return perso;
+          setList((list: ListI) => {
+            list.stats.strength = Number(e.target.value);
+            return list;
           });
         }}
         required

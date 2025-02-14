@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 
-export default function DeletePerso({ ...props }: any){
+export default function DeleteList({ ...props }: any){
 
   let navigate = useNavigate();
 
@@ -10,14 +10,14 @@ export default function DeletePerso({ ...props }: any){
 
   useEffect(() => {
     if(!id){
-      const {persoId} = props;
-      setId(persoId);
+      const {listId} = props;
+      setId(listId);
     }
   }, [id]);
 
   const submitDeleteForm = async (e: any) => {
     e.preventDefault();
-    await fetch("http://127.0.0.1:5500/perso/delete", {
+    await fetch("http://127.0.0.1:5500/list/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
