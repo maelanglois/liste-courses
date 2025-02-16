@@ -17,6 +17,9 @@ export default function Home() {
     <Link to="/list/get/list">
       Voir ses précédentes listes de courses
     </Link>
+    <Link to="/list/delete">
+      Supprimer une liste de course
+    </Link>
   </div>
     
   </>;

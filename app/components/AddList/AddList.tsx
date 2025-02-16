@@ -4,12 +4,6 @@ import { ListContext } from "~/shared/contexts/ListContext";
 import type { ListI } from "~/shared/interfaces/List.interface";
 
 export default function AddList() {
-  /**
-   * - Afficher une confirmation de création de listnnage
-   * - Afficher la fiche du listnnage
-   * - Moduler les classes pour les rendre dynamiques
-   * - Idée : Génération du pseudo/titre auto
-   */
 
   let {list, setList} = useContext(ListContext);
 
@@ -141,7 +135,6 @@ export default function AddList() {
         type="number"
         name="beurre"
         value={list.elements.beurre}
-        min={0}
         onChange={(e) => {
           setList((list: ListI) => {
             list.elements.beurre = Number(e.target.value);
